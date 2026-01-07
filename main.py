@@ -61,3 +61,12 @@ def queue_status(user_id: int = 1):
         "position": position,
         "status": "NOW" if position == 1 else "WAITING"
     }
+@app.get("/predict-wait-time")
+def predict_wait_time(queue_length: int, avg_service_time: int, active_staff: int):
+    wait = max(1, int((queue_length * avg_service_time) / active_staff))
+
+    return {
+        "best_arrival_time": "5:40 – 6:00 PM",
+        "estimated_wait_minutes": wait,
+        "confidence": "HIGH"
+    }
